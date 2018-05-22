@@ -18,6 +18,7 @@ from django.conf.urls import include, url
 
 
 urlpatterns = [
+    url('grappelli/', include('grappelli.urls')),  # grappelli URLS
     url(r'^admin/', admin.site.urls),
     # url(r'^recipes/', include('recipes.urls')),
 ]
