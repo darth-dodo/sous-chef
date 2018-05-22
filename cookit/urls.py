@@ -14,10 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.contrib import admin
+# from django.conf import settings
 from django.conf.urls import include, url
+from settings.base import ADMIN_SITE_HEADER
 
+admin.site.site_header = ADMIN_SITE_HEADER
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+    url(r'^', admin.site.urls),
+    url(r'^jet/', include('jet.urls', 'jet')),  # Django JET URLS
+    url(r'^jet/dashboard/', include('jet.dashboard.urls', 'jet-dashboard')),  # Django JET dashboard URLS
+    # url(r'^admin/', admin.site.urls),
     # url(r'^recipes/', include('recipes.urls')),
 ]
