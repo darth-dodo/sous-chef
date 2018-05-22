@@ -6,10 +6,16 @@ from django.contrib import admin
 from mealplans.models import MealPlan, MealPlanMenu, UserMealPlan
 
 
+class MealPlanMenuInline(admin.TabularInline):
+    model = MealPlanMenu
+
+
 class MealPlanAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'name', 'description')
     search_fields = ['name']
     list_editable = ['name']
+
+    inlines = [MealPlanMenuInline]
 
     class Meta:
         model = MealPlan

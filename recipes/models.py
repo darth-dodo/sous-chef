@@ -41,7 +41,7 @@ class Recipe(RowInformation):
     description = models.TextField(null=True, blank=True)
 
     # associations
-    ingredients = models.ManyToManyField(Ingredient, related_name='ingredients', blank=True)
+    key_ingredients = models.ManyToManyField(Ingredient, related_name='ingredients', blank=True)
 
     # denormalized
     ingredients_quantity = models.TextField(null=True, blank=True)

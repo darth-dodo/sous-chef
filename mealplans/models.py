@@ -21,7 +21,6 @@ class MealPlan(RowInformation):
         db_table = 'mealplan'
 
     def save(self, *args, **kwargs):
-        self.name = self.name.title()
         super(MealPlan, self).save(*args, **kwargs)
 
     def __str__(self):

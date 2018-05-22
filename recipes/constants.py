@@ -5,6 +5,7 @@ MAINS = 'MN'
 SIDES = 'SD'
 CONDIMENTS = 'CD'
 SNACKS = 'SC'
+BEVERAGES = 'BG'
 
 CATEGORIES = (
     (SOUPS, 'Soups'),
@@ -14,6 +15,7 @@ CATEGORIES = (
     (SIDES, 'Side Dishes'),
     (CONDIMENTS, 'Condiments'),
     (SNACKS, 'Snacks'),
+    (BEVERAGES, 'Beverages'),
 )
 
 

@@ -9,13 +9,13 @@ from recipes.models import Recipe, Ingredient, NutritionalInformation
 
 
 class IngredientsInline(admin.TabularInline):
-    model = Recipe.ingredients.through
+    model = Recipe.key_ingredients.through
 
 
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'availability', 'low_shelf_life')
+    list_display = ('__str__', 'availability')
     search_fields = ['name']
-    list_filter = ['availability', 'low_shelf_life']
+    list_filter = ['availability']
     list_editable = ['availability']
 
     inlines = [IngredientsInline]
@@ -40,7 +40,7 @@ class RecipeAdmin(admin.ModelAdmin):
         model = Recipe
 
     def original_url(self, obj):
-        if  obj.url:
+        if obj.url:
             return '<a href="{0}" target="_blank" >{0}</a>'.format(obj.url)
         else:
             return ''
