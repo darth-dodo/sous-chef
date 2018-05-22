@@ -13,8 +13,8 @@ from recipes.constants import CATEGORIES, RECIPE_DIFFICULTY, INGREDIENT_AVAILABI
 
 class Ingredient(RowInformation):
     name = models.CharField(max_length=100, blank=False, null=False, unique=True)
-    availability = models.CharField(max_length=2, choices=INGREDIENT_AVAILABILITY, null=False, blank=False)
-    low_shelf_life = models.BooleanField(default=False)
+    availability = models.CharField(max_length=2, choices=INGREDIENT_AVAILABILITY, default=LOCALLY)
+    low_shelf_life = models.BooleanField(default=True)
 
     class Meta:
         db_table = 'ingredients'
