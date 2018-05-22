@@ -4,12 +4,12 @@ from __future__ import unicode_literals
 # system imports
 from django.db import models
 
+# project imports
+from cookit.utils.model_utils import RowInformation
+
 # app imports
-from recipes.utils.model_utils import RowInformation
 from recipes.constants import CATEGORIES, RECIPE_DIFFICULTY, INGREDIENT_AVAILABILITY, LOCALLY, MAINS, MEDIUM
 
-
-# Create your models here.
 
 class Ingredient(RowInformation):
     name = models.CharField(max_length=100, blank=False, null=False, unique=True)
@@ -65,7 +65,7 @@ class NutritionalInformation(RowInformation):
     """
     
     """
-    recipe = models.OneToOneField(Recipe, related_name='recipe', on_delete=models.CASCADE)
+    recipe = models.OneToOneField(Recipe, related_name='stats', on_delete=models.CASCADE)
     fats = models.PositiveIntegerField(default=0)
     protein = models.PositiveIntegerField(default=0)
     carbs = models.PositiveIntegerField(default=0)
