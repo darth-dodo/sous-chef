@@ -42,8 +42,8 @@ class MealPlanMenu(RowInformation):
 
     def save(self, *args, **kwargs):
 
-        if not self.approx_calorie_count:
-            self.approx_calorie_count = calculate_approx_calories_for_recipes(self.recipes)
+        # if not self.approx_calorie_count:
+        #     self.approx_calorie_count = calculate_approx_calories_for_recipes(self.recipes)
 
         super(MealPlanMenu, self).save(*args, **kwargs)
 

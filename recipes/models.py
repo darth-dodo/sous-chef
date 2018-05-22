@@ -13,7 +13,7 @@ from recipes.constants import CATEGORIES, RECIPE_DIFFICULTY, INGREDIENT_AVAILABI
 
 class Ingredient(RowInformation):
     name = models.CharField(max_length=100, blank=False, null=False, unique=True)
-    availability = models.CharField(max_length=2, choices=INGREDIENT_AVAILABILITY, default=LOCALLY)
+    availability = models.CharField(max_length=2, choices=INGREDIENT_AVAILABILITY, null=False, blank=False)
     low_shelf_life = models.BooleanField(default=False)
 
     class Meta:
@@ -44,8 +44,9 @@ class Recipe(RowInformation):
     ingredients = models.ManyToManyField(Ingredient, related_name='ingredients', blank=True)
 
     # denormalized
-    steps = models.TextField(null=True, blank=True)
     ingredients_quantity = models.TextField(null=True, blank=True)
+
+    steps = models.TextField(null=True, blank=True)
     cooking_duration = models.PositiveIntegerField(default=0)
 
     servings = models.PositiveIntegerField(default=1)

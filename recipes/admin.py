@@ -3,8 +3,13 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+
 # Register your models here.
 from recipes.models import Recipe, Ingredient, NutritionalInformation
+
+
+class IngredientsInline(admin.TabularInline):
+    model = Recipe.ingredients.through
 
 
 class IngredientAdmin(admin.ModelAdmin):
@@ -12,6 +17,8 @@ class IngredientAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['availability', 'low_shelf_life']
     list_editable = ['availability']
+
+    inlines = [IngredientsInline]
 
     class Meta:
         model = Ingredient
@@ -25,6 +32,9 @@ class RecipeAdmin(admin.ModelAdmin):
     search_fields = ['name', 'url']
     list_filter = ['category', 'difficulty', 'is_veg', 'servings']
     list_editable = ['category', 'difficulty']
+
+    inlines = [IngredientsInline]
+    # filter_horizontal = ('ingredients',)
 
     class Meta:
         model = Recipe

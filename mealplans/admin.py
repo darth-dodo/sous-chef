@@ -19,10 +19,10 @@ admin.site.register(MealPlan, MealPlanAdmin)
 
 
 class MealPlanMenuAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'meal_plan', 'meal', 'approx_calorie_count')
+    list_display = ('__str__', 'meal_plan', 'day', 'meal', 'approx_calorie_count')
     search_fields = ['meal_plan__name', 'day']
-    list_filter = ['meal_plan', 'day']
-    list_display_links = ['meal_plan']
+    list_filter = ['meal_plan__name', 'day']
+    list_display_links = ['__str__', 'meal_plan']
 
     class Meta:
         model = MealPlanMenu
