@@ -40,11 +40,11 @@ class MealPlanMenu(RowInformation):
         unique_together = ['day', 'meal_plan', 'meal']
 
     def save(self, *args, **kwargs):
+        super(MealPlanMenu, self).save(*args, **kwargs)
 
+        # todo auto populate calories
         # if not self.approx_calorie_count:
         #     self.approx_calorie_count = calculate_approx_calories_for_recipes(self.recipes)
-
-        super(MealPlanMenu, self).save(*args, **kwargs)
 
     def __str__(self):
         return '{0} - {1}'.format(self.meal_plan, self.get_day_display())

@@ -12,6 +12,10 @@ class IngredientsInline(admin.TabularInline):
     model = Recipe.key_ingredients.through
 
 
+class NutritionalInformationInline(admin.TabularInline):
+    model = NutritionalInformation
+
+
 class IngredientAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'availability')
     search_fields = ['name']
@@ -33,7 +37,7 @@ class RecipeAdmin(admin.ModelAdmin):
     list_filter = ['category', 'difficulty', 'is_veg', 'servings']
     list_editable = ['category', 'difficulty']
 
-    inlines = [IngredientsInline]
+    inlines = [NutritionalInformationInline, IngredientsInline]
     # filter_horizontal = ('ingredients',)
 
     class Meta:
