@@ -12,30 +12,31 @@ from recipes.constants import CATEGORIES, RECIPE_DIFFICULTY, INGREDIENT_AVAILABI
 # Create your models here.
 
 class Ingredient(RowInformation):
-    name = models.CharField(max_length=100, required=True, unique=True)
-    cost = models.CharField(max_length=2, choices=INGREDIENT_AVAILABILITY, default=LOCALLY)
+    name = models.CharField(max_length=100, blank=False, null=False, unique=True)
+    availability = models.CharField(max_length=2, choices=INGREDIENT_AVAILABILITY, default=LOCALLY)
     low_shelf_life = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'ingredients'
 
     def save(self, *args, **kwargs):
-        self.name = self.name.title
+        self.name = self.name.title()
+        super(Ingredient, self).save(*args, **kwargs)
 
     def __str__(self):
-        return "{0}".format(self.name)
+        return self.name
 
 
 class Recipe(RowInformation):
     """
     Stores recipes
     """
-    name = models.CharField(max_length=100, required=True)
+    name = models.CharField(max_length=100, blank=False, null=False)
     url = models.URLField(null=True, blank=True)
     is_veg = models.BooleanField(default=False)
 
-    category = models.CharField(max_length=2, choices=CATEGORIES, required=True, default=MAINS)
-    difficulty = models.CharField(max_length=2, choices=RECIPE_DIFFICULTY, required=MEDIUM)
+    category = models.CharField(max_length=2, choices=CATEGORIES, default=MAINS)
+    difficulty = models.CharField(max_length=2, choices=RECIPE_DIFFICULTY, default=MEDIUM)
 
     description = models.TextField(null=True, blank=True)
 
@@ -44,13 +45,17 @@ class Recipe(RowInformation):
 
     # denormalized
     steps = models.TextField(null=True, blank=True)
+    ingredients_quantity = models.TextField(null=True, blank=True)
+    cooking_duration = models.PositiveIntegerField(default=0)
+
     servings = models.PositiveIntegerField(default=1)
 
     class Meta:
         db_table = 'recipes'
 
     def save(self, *args, **kwargs):
-        self.name = self.name.title
+        self.name = self.name.title()
+        super(Recipe, self).save(*args, **kwargs)
 
     def __str__(self):
         return "{0}".format(self.name)
@@ -71,10 +76,14 @@ class NutritionalInformation(RowInformation):
 
     class Meta:
         db_table = 'nutritional_information'
+        verbose_name_plural = 'Nutrional Information'
 
     def __str__(self):
-        return '{0} kcals'.format(self.calories)
+        return '{0} | {1} servings | {2} kcals'.format(
+            self.recipe.name, self.recipe.servings, self.calories)
 
     def save(self, *args, **kwargs):
         if not self.net_carbs:
             self.net_carbs = self.carbs - self.fibre
+
+        super(NutritionalInformation, self).save(*args, **kwargs)

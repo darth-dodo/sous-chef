@@ -19,5 +19,5 @@ from django.conf.urls import include, url
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^recipes/', include('recipes.urls')),
+    # url(r'^recipes/', include('recipes.urls')),
 ]
