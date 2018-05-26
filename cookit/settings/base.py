@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     # cookit apps
     'recipes',
     'mealplans',
+    'stats',
 ]
 
 MIDDLEWARE = [
