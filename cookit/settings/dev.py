@@ -2,8 +2,6 @@ from .base import *
 
 DEBUG = True
 
-print "Dev setting loaded"
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
