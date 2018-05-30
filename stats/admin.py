@@ -7,13 +7,8 @@ from django.forms import ModelForm
 # Register your models here.
 from stats.models import WeightLog, DayVariant
 
+from django.contrib.auth.models import User
 
-# class WeightLogAdminForm(ModelForm):
-#     def clean_user:
-#         if not request.user.is_superuser:
-#
-
-# TODO validation for user and request user
 
 class WeightLogAdmin(admin.ModelAdmin):
 
@@ -32,6 +27,14 @@ class WeightLogAdmin(admin.ModelAdmin):
             qs = qs.filter(user=request.user)
 
         return qs
+
+    def formfield_for_foreignkey(self, db_field, request, **kwargs):
+        if db_field.name == 'user' and not request.user.is_superuser:
+            kwargs['initial'] = request.user.id
+            kwargs['queryset'] = User.objects.filter(id=request.user.id)
+            return db_field.formfield(**kwargs)
+
+        return super(WeightLogAdmin, self).formfield_for_foreignkey(db_field, request, **kwargs)
 
 admin.site.register(WeightLog, WeightLogAdmin)
 
